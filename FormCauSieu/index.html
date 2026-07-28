@@ -484,6 +484,7 @@
                         <select class="person-gender w-full px-3 py-2 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-chua-amber text-sm">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
+                            <option value="Chưa biết">Chưa biết</option>
                         </select>
                     </div>
 
@@ -628,7 +629,7 @@
                 const nameInput = row.querySelector('.person-name');
                 const name = nameInput ? nameInput.value.trim() : '';
                 const phapdanh = row.querySelector('.person-phapdanh')?.value.trim() || '';
-                const gender = row.querySelector('.person-gender')?.value || 'Nam';
+                const gender = row.querySelector('.person-gender')?.value || 'Chưa biết';
                 const death = row.querySelector('.person-death')?.value.trim() || '';
                 
                 const calendarRadio = row.querySelector('input[type="radio"]:checked');
