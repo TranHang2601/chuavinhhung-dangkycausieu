@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Cầu Siêu - Chùa Vĩnh Hưng</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Merriweather -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- SheetJS with Full Styling Support for Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chua: {
+                            red: '#991b1b',
+                            gold: '#d97706',
+                            amber: '#b45309',
+                            darkred: '#7f1d1d',
+                            cream: '#fef3c7',
+                            bg: '#fdfbf7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8f6f0;
+            background-image: radial-gradient(#e5e0d8 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(153, 27, 27, 0.1), 0 8px 10px -6px rgba(153, 27, 27, 0.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-lg border-b-4 border-chua-gold sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3 text-center sm:text-left">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-chua-gold overflow-hidden flex items-center justify-center">
+                    <img src="images/LogoChua.png" alt="Logo Chùa Vĩnh Hưng" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<svg viewBox=\'0 0 200 200\' class=\'w-full h-full text-chua-red\'><circle cx=\'100\' cy=\'100\' r=\'95\' fill=\'none\' stroke=\'#991b1b\' stroke-width=\'6\'/><circle cx=\'100\' cy=\'100\' r=\'82\' fill=\'none\' stroke=\'#991b1b\' stroke-width=\'2\'/><path d=\'M 60 130 L 140 130 L 130 90 L 70 90 Z\' fill=\'#991b1b\'/><path d=\'M 50 95 C 70 85, 130 85, 150 95 L 140 75 L 60 75 Z\' fill=\'#991b1b\'/><circle cx=\'100\' cy=\'105\' r=\'8\' fill=\'#fff\'/><text x=\'100\' y=\'38\' font-family=\'serif\' font-size=\'14\' font-weight=\'bold\' fill=\'#991b1b\' text-anchor=\'middle\'>CHÙA VĨNH HƯNG</text></svg>';">
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold font-serif tracking-wide text-amber-200 uppercase drop-shadow">CHÙA VĨNH HƯNG</h1>
+                    <p class="text-xs sm:text-sm text-red-100 mt-0.5 font-light">
+                        <i class="fa-solid fa-location-dot text-amber-300 mr-1"></i>Khu phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex bg-black/20 p-1.5 rounded-xl border border-amber-500/30">
+                <button id="tab-form-btn" onclick="window.switchTab('form')" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-amber-500 text-chua-darkred font-semibold shadow">
+                    <i class="fa-solid fa-pen-to-square mr-1.5"></i>Đăng Ký
+                </button>
+                <button id="tab-admin-btn" onclick="window.switchTab('admin')" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-amber-100 hover:text-white hover:bg-white/10 ml-1">
+                    <i class="fa-solid fa-user-shield mr-1.5"></i>Quản Lý
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-6 flex-grow">
+
+        <!-- ================= TAB 1: FORM ĐĂNG KÝ ================= -->
+        <section id="tab-form" class="space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-bl-full -z-0 opacity-40 pointer-events-none"></div>
+
+                <div class="text-center mb-8 relative z-10">
+                    <span class="inline-block px-3 py-1 bg-red-100 text-chua-red text-xs font-semibold uppercase tracking-wider rounded-full mb-2">Phật Sự Cầu Siêu</span>
+                    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-chua-red uppercase">Phiếu Đăng Ký Cầu Siêu</h2>
+                    <p class="text-gray-600 text-sm mt-2 max-w-xl mx-auto italic">
+                        "Nguyện đem công đức này hướng về khắp tất cả, đệ tử và chúng sinh đều trọn thành Phật đạo."
+                    </p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-amber-400 via-chua-red to-amber-400 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <form id="cauSieuForm" onsubmit="window.handleFormSubmit(event)" class="space-y-8 relative z-10">
+                    
+                    <!-- Phần 1: Thông tin Tín Chủ (Người gửi) -->
+                    <div class="bg-amber-50/50 p-5 sm:p-6 rounded-xl border border-amber-200/80 space-y-4">
+                        <h3 class="text-lg font-bold font-serif text-chua-amber flex items-center border-b border-amber-200 pb-2">
+                            <i class="fa-solid fa-user-praying mr-2.5 text-chua-red"></i>
+                            THÔNG TIN PHẬT TỬ (NGƯỜI ĐĂNG KÝ)
+                        </h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                                    Họ và tên Tín chủ <span class="text-red-600">*</span>
+                                </label>
+                                <input type="text" id="sender_name" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none transition text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                                    Pháp danh Tín chủ <span class="text-gray-400 font-normal lowercase">(nếu có)</span>
+                                </label>
+                                <input type="text" id="sender_phapdanh" placeholder="Ví dụ: Nguyên Tâm" class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none transition text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                                    Số điện thoại / Zalo <span class="text-red-600">*</span>
+                                </label>
+                                <input type="tel" id="sender_phone" required placeholder="Ví dụ: 0912345678" class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none transition text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                                    Địa chỉ gia đình <span class="text-red-600">*</span>
+                                </label>
+                                <input type="text" id="sender_address" required placeholder="Số nhà, đường, phường/xã, tỉnh/TP" class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none transition text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                                Ghi chú / Lời nguyện
+                            </label>
+                            <textarea id="sender_note" rows="2" placeholder="Nhập thêm nguyện vọng hoặc lời dặn dò (nếu có)..." class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none transition text-sm"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Phần 2: Danh sách Hương Linh cần Cầu Siêu -->
+                    <div class="space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-200 pb-2">
+                            <h3 class="text-lg font-bold font-serif text-chua-red flex items-center">
+                                <i class="fa-solid fa-restroom mr-2.5 text-chua-amber"></i>
+                                DANH SÁCH HƯƠNG LINH CẦU SIÊU
+                            </h3>
+                            <span class="text-xs text-gray-500 italic">Có thể bấm thêm để đăng ký nhiều người</span>
+                        </div>
+
+                        <div id="people-container" class="space-y-4">
+                            <!-- JS tự động sinh các dòng ở đây -->
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="button" onclick="window.addPersonRow()" class="w-full py-3 border-2 border-dashed border-chua-amber/60 hover:border-chua-amber text-chua-amber bg-amber-50/40 hover:bg-amber-100/50 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 group">
+                                <span class="w-6 h-6 rounded-full bg-chua-amber text-white flex items-center justify-center text-xs group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-plus"></i>
+                                </span>
+                                <span>Thêm người được cầu siêu</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4 text-center">
+                        <button type="submit" id="submit-btn" class="w-full sm:w-auto px-10 py-3.5 bg-gradient-to-r from-chua-amber to-chua-red hover:from-chua-red hover:to-chua-darkred text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 active:translate-y-0 text-base uppercase tracking-wider flex items-center justify-center mx-auto space-x-2">
+                            <i class="fa-solid fa-paper-plane text-amber-300"></i>
+                            <span>Gửi Đăng Ký Cầu Siêu</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: QUẢN LÝ ADMIN ================= -->
+        <section id="tab-admin" class="hidden space-y-6">
+            
+            <div id="admin-lock-screen" class="bg-white rounded-2xl p-8 sm:p-12 custom-shadow border border-amber-200 text-center max-w-md mx-auto space-y-6">
+                <div class="w-20 h-20 rounded-full bg-amber-100 text-chua-red flex items-center justify-center mx-auto text-3xl border-2 border-amber-300">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold font-serif text-chua-darkred uppercase">Màn Hình Quản Lý</h3>
+                    <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN Admin để xem danh sách đăng ký</p>
+                </div>
+
+                <div class="space-y-4">
+                    <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN..." maxlength="8" onkeypress="if(event.key === 'Enter') window.unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none">
+                    
+                    <button type="button" onclick="window.unlockAdmin()" class="w-full py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl shadow transition text-sm uppercase">
+                        Mở Khóa Quản Lý
+                    </button>
+                </div>
+            </div>
+
+            <div id="admin-content" class="hidden bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200 space-y-6">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-serif font-bold text-chua-red uppercase flex items-center">
+                            <i class="fa-solid fa-list-check mr-2.5 text-chua-amber"></i>
+                            Danh Sách Cầu Siêu Đã Đăng Ký
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Tổng số lượt đăng ký: <span id="total-records-count" class="font-bold text-chua-red text-sm">0</span>
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button type="button" onclick="window.exportToExcel()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center shadow">
+                            <i class="fa-solid fa-file-excel mr-1.5 text-sm"></i> Xuất File Excel
+                        </button>
+                        <button type="button" onclick="window.promptChangePassword()" class="px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-xs font-semibold transition flex items-center">
+                            <i class="fa-solid fa-key mr-1.5"></i> Đổi PIN
+                        </button>
+                        <button type="button" onclick="window.logoutAdmin()" class="px-3 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-xs font-semibold transition flex items-center">
+                            <i class="fa-solid fa-lock mr-1.5"></i> Khóa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center bg-gray-50 px-3.5 py-2 rounded-xl border border-gray-200">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2.5"></i>
+                    <input type="text" id="search-input" oninput="currentPage = 1; window.renderAdminList()" placeholder="Tìm kiếm theo Tín chủ, SĐT, Hương linh, Pháp danh..." class="w-full bg-transparent outline-none text-sm">
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold border-b border-amber-200">
+                                <th class="py-3 px-4 w-12 text-center">STT</th>
+                                <th class="py-3 px-4 w-32">Ngày gửi</th>
+                                <th class="py-3 px-4 w-48">Tín Chủ</th>
+                                <th class="py-3 px-4 w-48">Liên Hệ & Địa Chỉ</th>
+                                <th class="py-3 px-4">Danh Sách Hương Linh Cầu Siêu</th>
+                                <th class="py-3 px-4 w-20 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-list-body" class="divide-y divide-gray-100 text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Màn hình phân trang khi danh sách > 10 người -->
+                <div id="pagination-container" class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-gray-200 text-xs sm:text-sm text-gray-600">
+                    <div id="pagination-info" class="text-xs text-gray-500 italic">
+                        Hiển thị 0 - 0 trên 0 bản ghi
+                    </div>
+                    <div id="pagination-controls" class="flex items-center space-x-1.5 flex-wrap">
+                        <!-- JS Render các nút bấm chuyển trang -->
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-chua-darkred text-amber-100 py-6 border-t-2 border-chua-gold mt-8 text-center text-xs">
+        <div class="max-w-4xl mx-auto px-4 space-y-1">
+            <p class="font-serif font-semibold text-amber-200 text-sm">CHÙA VĨNH HƯNG</p>
+            <p>Khu phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai</p>
+            <p class="text-amber-300/80 pt-2 text-[14px]">Nam Mô A Di Đà Phật</p>
+        </div>
+    </footer>
+
+    <!-- Custom Modal -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-amber-200 transform animate-fadeIn">
+            <div class="text-center space-y-2">
+                <div id="modal-icon" class="w-14 h-14 bg-amber-100 text-chua-red rounded-full flex items-center justify-center mx-auto text-2xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 id="modal-title" class="text-xl font-bold font-serif text-chua-red">Thông Báo</h3>
+                <p id="modal-message" class="text-sm text-gray-600 leading-relaxed"></p>
+            </div>
+            <div id="modal-actions" class="flex justify-center gap-3 pt-2">
+                <button type="button" onclick="window.closeModal()" class="px-6 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-sm transition min-w-[100px]">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Excel Export Options Modal -->
+    <div id="mobile-export-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl border border-amber-200 transform animate-fadeIn">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-file-excel"></i>
+                </div>
+                <h3 class="text-lg font-bold font-serif text-chua-red uppercase">Tùy Chọn Tải Dữ Liệu</h3>
+                <p class="text-xs text-gray-500">Chọn phương thức phù hợp với trình duyệt điện thoại của bạn</p>
+            </div>
+
+            <div class="space-y-2.5 pt-1">
+                <button type="button" id="btn-share-excel" class="w-full p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-between shadow">
+                    <span class="flex items-center"><i class="fa-solid fa-share-nodes text-base mr-2.5"></i> Chia Sẻ / Lưu Vào Tệp (Zalo, Drive, Files)</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <a id="btn-direct-download" href="#" download="" class="w-full p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-between shadow text-left block">
+                    <span class="flex items-center"><i class="fa-solid fa-download text-base mr-2.5"></i> Tải Xuống Trực Tiếp File .xlsx</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </a>
+
+                <button type="button" id="btn-copy-clipboard" class="w-full p-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-between shadow">
+                    <span class="flex items-center"><i class="fa-solid fa-copy text-base mr-2.5"></i> Sao Chép Bảng Dữ Liệu (Dán vào Sheets/Excel)</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <button type="button" id="btn-open-printable" class="w-full p-3 bg-gray-700 hover:bg-gray-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-between shadow">
+                    <span class="flex items-center"><i class="fa-solid fa-print text-base mr-2.5"></i> Xem Dạng Trang In / Bảng HTML</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+
+            <div class="pt-2 text-center">
+                <button type="button" onclick="document.getElementById('mobile-export-modal').classList.add('hidden')" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-xl text-xs transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <script>
+        let personCounter = 0;
+        let isAdminUnlocked = false;
+        let onModalConfirmCallback = null;
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        const CLOUD_DB_URL = 'https://chua-vinh-hung-default-rtdb.asia-southeast1.firebasedatabase.app/registrations';
+        const STORAGE_KEY_RECORDS = 'chua_vinh_hung_cau_sieu_records';
+        const STORAGE_KEY_PIN = 'chua_vinh_hung_admin_pin';
+
+        async function fetchRecordsFromCloud() {
+            try {
+                if (!CLOUD_DB_URL) return getSavedRecords();
+                const response = await fetch(`${CLOUD_DB_URL}.json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data) {
+                        const recordsList = Object.keys(data).map(key => ({
+                            firebaseKey: key,
+                            ...data[key]
+                        }));
+                        // Sắp xếp người đăng ký trước lên đầu (STT 1)
+                        recordsList.sort((a, b) => (a.created_at || 0) - (b.created_at || 0));
+                        localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(recordsList));
+                        return recordsList;
+                    } else {
+                        localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify([]));
+                        return [];
+                    }
+                }
+            } catch (err) {
+                console.warn("Không thể tải từ đám mây, sử dụng dữ liệu tại máy", err);
+            }
+            return getSavedRecords();
+        }
+
+        function getSavedRecords() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY_RECORDS);
+                if (data) return JSON.parse(data);
+            } catch (e) {
+                console.error("Lỗi đọc LocalStorage", e);
+            }
+            return [];
+        }
+
+        function saveLocalRecords(records) {
+            localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(records));
+        }
+
+        function getAdminPin() {
+            return localStorage.getItem(STORAGE_KEY_PIN) || '1234';
+        }
+
+        function setAdminPin(pin) {
+            localStorage.setItem(STORAGE_KEY_PIN, pin);
+        }
+
+        window.showToast = function(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-xl text-sm font-semibold shadow-lg text-white flex items-center space-x-2 pointer-events-auto transform animate-fadeIn ${isError ? 'bg-red-600' : 'bg-emerald-600'}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3500);
+        };
+
+        window.showModal = function(title, message, onConfirm = null) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            
+            const actionsContainer = document.getElementById('modal-actions');
+            actionsContainer.innerHTML = '';
+
+            if (onConfirm) {
+                onModalConfirmCallback = onConfirm;
+                actionsContainer.innerHTML = `
+                    <button type="button" onclick="window.closeModal()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-xl text-sm transition">Hủy</button>
+                    <button type="button" onclick="window.confirmModalAction()" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition">Đồng Ý</button>
+                `;
+            } else {
+                actionsContainer.innerHTML = `
+                    <button type="button" onclick="window.closeModal()" class="px-6 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-sm transition">Đóng</button>
+                `;
+            }
+
+            document.getElementById('custom-modal').classList.remove('hidden');
+        };
+
+        window.closeModal = function() {
+            document.getElementById('custom-modal').classList.add('hidden');
+            onModalConfirmCallback = null;
+        };
+
+        window.confirmModalAction = function() {
+            if (onModalConfirmCallback) {
+                onModalConfirmCallback();
+            }
+            window.closeModal();
+        };
+
+        window.addPersonRow = function() {
+            personCounter++;
+            const container = document.getElementById('people-container');
+            const rowId = `person-row-${personCounter}`;
+
+            const div = document.createElement('div');
+            div.id = rowId;
+            div.className = "p-4 bg-gray-50/80 rounded-xl border border-gray-200 space-y-3 relative transition-all animate-fadeIn";
+
+            div.innerHTML = `
+                <div class="flex items-center justify-between border-b border-gray-200/60 pb-2">
+                    <span class="text-xs font-bold text-chua-amber uppercase tracking-wider">
+                        <i class="fa-solid fa-user text-gray-400 mr-1"></i> Hương linh thứ <span class="row-index">1</span>
+                    </span>
+                    <button type="button" onclick="window.removePersonRow('${rowId}')" class="delete-btn text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1 bg-red-50 hover:bg-red-100 rounded-lg transition" title="Xóa người này">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Xóa
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-gray-600 uppercase mb-1">
+                            Họ và Tên Hương Linh <span class="text-red-600">*</span>
+                        </label>
+                        <input type="text" required placeholder="Họ và tên..." class="person-name w-full px-3 py-2 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-chua-amber text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-gray-600 uppercase mb-1">
+                            Pháp danh <span class="text-gray-400 font-normal lowercase">(nếu có)</span>
+                        </label>
+                        <input type="text" placeholder=" " class="person-phapdanh w-full px-3 py-2 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-chua-amber text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-gray-600 uppercase mb-1">Giới tính</label>
+                        <select class="person-gender w-full px-3 py-2 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-chua-amber text-sm">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-gray-600 uppercase mb-1">
+                            Năm mất / Hưởng thọ
+                        </label>
+                        <input type="text" placeholder="VD: 2023 (78 tuổi)" class="person-death w-full px-3 py-2 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-chua-amber text-sm">
+                    </div>
+                </div>
+
+                <div class="pt-1 flex items-center space-x-6">
+                    <span class="text-[11px] font-semibold text-gray-600 uppercase">Lịch ngày mất:</span>
+                    <label class="flex items-center space-x-2 cursor-pointer text-sm font-medium text-gray-700">
+                        <input type="radio" name="person_calendar_${personCounter}" value="Âm lịch" checked class="w-4 h-4 text-chua-amber focus:ring-chua-amber border-gray-300">
+                        <span>Âm lịch</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer text-sm font-medium text-gray-700">
+                        <input type="radio" name="person_calendar_${personCounter}" value="Dương lịch" class="w-4 h-4 text-chua-amber focus:ring-chua-amber border-gray-300">
+                        <span>Dương lịch</span>
+                    </label>
+                </div>
+            `;
+
+            container.appendChild(div);
+            window.updateRowIndexes();
+        };
+
+        window.removePersonRow = function(rowId) {
+            const container = document.getElementById('people-container');
+            if (container.children.length <= 1) {
+                window.showToast("Cần ít nhất 1 Hương linh trong danh sách đăng ký", true);
+                return;
+            }
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+                window.updateRowIndexes();
+            }
+        };
+
+        window.updateRowIndexes = function() {
+            const container = document.getElementById('people-container');
+            const rows = container.children;
+            for (let i = 0; i < rows.length; i++) {
+                const indexSpan = rows[i].querySelector('.row-index');
+                if (indexSpan) indexSpan.textContent = i + 1;
+
+                const deleteBtn = rows[i].querySelector('.delete-btn');
+                if (deleteBtn) {
+                    deleteBtn.style.display = (rows.length === 1) ? 'none' : 'inline-block';
+                }
+            }
+        };
+
+        window.switchTab = async function(tabName) {
+            const formTab = document.getElementById('tab-form');
+            const adminTab = document.getElementById('tab-admin');
+            const formBtn = document.getElementById('tab-form-btn');
+            const adminBtn = document.getElementById('tab-admin-btn');
+
+            if (tabName === 'form') {
+                formTab.classList.remove('hidden');
+                adminTab.classList.add('hidden');
+
+                formBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-amber-500 text-chua-darkred font-semibold shadow";
+                adminBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-amber-100 hover:text-white hover:bg-white/10 ml-1";
+            } else {
+                formTab.classList.add('hidden');
+                adminTab.classList.remove('hidden');
+
+                adminBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-amber-500 text-chua-darkred font-semibold shadow";
+                formBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-amber-100 hover:text-white hover:bg-white/10 ml-1";
+
+                if (isAdminUnlocked) {
+                    document.getElementById('admin-lock-screen').classList.add('hidden');
+                    document.getElementById('admin-content').classList.remove('hidden');
+                    await fetchRecordsFromCloud();
+                    window.renderAdminList();
+                } else {
+                    document.getElementById('admin-lock-screen').classList.remove('hidden');
+                    document.getElementById('admin-content').classList.add('hidden');
+                }
+            }
+        };
+
+        window.unlockAdmin = async function() {
+            const pinInput = document.getElementById('admin-pin-input').value;
+            const savedPin = getAdminPin();
+
+            if (pinInput === savedPin) {
+                isAdminUnlocked = true;
+                document.getElementById('admin-lock-screen').classList.add('hidden');
+                document.getElementById('admin-content').classList.remove('hidden');
+                document.getElementById('admin-pin-input').value = '';
+                await fetchRecordsFromCloud();
+                window.renderAdminList();
+                window.showToast("Mở khóa màn hình Quản lý thành công");
+            } else {
+                window.showToast("Mã PIN không chính xác!", true);
+            }
+        };
+
+        window.logoutAdmin = function() {
+            isAdminUnlocked = false;
+            document.getElementById('admin-lock-screen').classList.remove('hidden');
+            document.getElementById('admin-content').classList.add('hidden');
+            window.showToast("Đã khóa màn hình Quản lý");
+        };
+
+        window.promptChangePassword = function() {
+            const currentPin = prompt("Nhập mã PIN hiện tại:");
+            if (currentPin === null) return;
+
+            if (currentPin !== getAdminPin()) {
+                window.showToast("Mã PIN hiện tại không đúng!", true);
+                return;
+            }
+
+            const newPin = prompt("Nhập mã PIN mới:");
+            if (newPin && newPin.trim().length >= 4) {
+                setAdminPin(newPin.trim());
+                window.showToast("Đã đổi mã PIN thành công!");
+            } else if (newPin !== null) {
+                window.showToast("PIN mới phải có ít nhất 4 ký tự", true);
+            }
+        };
+
+        window.handleFormSubmit = function(e) {
+            e.preventDefault();
+
+            const senderName = document.getElementById('sender_name').value.trim();
+            const senderPhapdanh = document.getElementById('sender_phapdanh').value.trim();
+            const senderPhone = document.getElementById('sender_phone').value.trim();
+            const senderAddress = document.getElementById('sender_address').value.trim();
+            const senderNote = document.getElementById('sender_note').value.trim();
+
+            const rows = document.getElementById('people-container').children;
+            const deceasedPeople = [];
+
+            for (let row of rows) {
+                const nameInput = row.querySelector('.person-name');
+                const name = nameInput ? nameInput.value.trim() : '';
+                const phapdanh = row.querySelector('.person-phapdanh')?.value.trim() || '';
+                const gender = row.querySelector('.person-gender')?.value || 'Nam';
+                const death = row.querySelector('.person-death')?.value.trim() || '';
+                
+                const calendarRadio = row.querySelector('input[type="radio"]:checked');
+                const calendarType = calendarRadio ? calendarRadio.value : 'Âm lịch';
+
+                if (name) {
+                    deceasedPeople.push({ name, phapdanh, gender, death, calendarType });
+                }
+            }
+
+            if (deceasedPeople.length === 0) {
+                window.showToast("Vui lòng nhập tên ít nhất 1 Hương linh!", true);
+                return;
+            }
+
+            const record = {
+                id: 'CS_' + Date.now(),
+                created_at: Date.now(),
+                timestamp: new Date().toLocaleString('vi-VN'),
+                sender: {
+                    name: senderName,
+                    phapdanh: senderPhapdanh,
+                    phone: senderPhone,
+                    address: senderAddress,
+                    note: senderNote
+                },
+                deceased: deceasedPeople
+            };
+
+            const records = getSavedRecords();
+            // Thêm lượt đăng ký mới vào cuối danh sách
+            records.push(record);
+            saveLocalRecords(records);
+
+            fetch(`${CLOUD_DB_URL}.json`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(record)
+            }).catch(err => console.warn("Lưu đám mây ngầm thất bại", err));
+
+            document.getElementById('cauSieuForm').reset();
+            document.getElementById('people-container').innerHTML = '';
+            personCounter = 0;
+            window.addPersonRow();
+
+            window.showModal(
+                "Đăng Ký Thành Công!",
+                "Thông tin cầu siêu của gia đình đã được lưu gửi đến Chùa Vĩnh Hưng. Chúc quý Phật tử cùng gia quyến luôn an lạc, vạn sự cát tường!"
+            );
+        };
+
+        window.renderAdminList = function() {
+            const records = getSavedRecords();
+            const searchQuery = (document.getElementById('search-input')?.value || '').toLowerCase();
+            const tbody = document.getElementById('admin-list-body');
+            const totalRecordsSpan = document.getElementById('total-records-count');
+
+            if (!tbody) return;
+
+            const filtered = records.filter(r => {
+                const searchStr = `${r.sender.name} ${r.sender.phapdanh} ${r.sender.phone} ${r.sender.address} ${r.deceased.map(d => d.name + ' ' + d.phapdanh).join(' ')}`.toLowerCase();
+                return searchStr.includes(searchQuery);
+            });
+
+            if (totalRecordsSpan) totalRecordsSpan.textContent = filtered.length;
+            tbody.innerHTML = '';
+
+            const totalItems = filtered.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            if (totalItems === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-8 text-gray-400 italic">
+                            Chưa có dữ liệu đăng ký nào.
+                        </td>
+                    </tr>
+                `;
+                window.renderPaginationControls(0, 0, 0, 1);
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const paginatedList = filtered.slice(startIndex, endIndex);
+
+            paginatedList.forEach((rec, index) => {
+                const globalIndex = startIndex + index;
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-amber-50/30 transition border-b border-gray-100";
+
+                const deceasedHtml = rec.deceased.map((d, i) => `
+                    <div class="py-1 ${i > 0 ? 'border-t border-gray-100 mt-1' : ''}">
+                        <span class="font-semibold text-chua-red">${i + 1}. ${d.name}</span>
+                        ${d.phapdanh ? `<span class="text-xs text-amber-800 font-medium ml-1">(PD: ${d.phapdanh})</span>` : ''}
+                        <div class="text-xs text-gray-500">
+                            ${d.gender ? `<span>${d.gender}</span> • ` : ''}
+                            ${d.death ? `<span>${d.death}</span>` : ''}
+                            ${d.calendarType ? `<span class="ml-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[10px] font-semibold">${d.calendarType}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-center font-bold text-gray-500">${globalIndex + 1}</td>
+                    <td class="py-3 px-4 text-xs text-gray-500 whitespace-nowrap">${rec.timestamp}</td>
+                    <td class="py-3 px-4 font-semibold text-gray-800">
+                        <div>${rec.sender.name}</div>
+                        ${rec.sender.phapdanh ? `<div class="text-xs text-amber-700">PD: ${rec.sender.phapdanh}</div>` : ''}
+                    </td>
+                    <td class="py-3 px-4 text-xs text-gray-600">
+                        <div class="font-semibold text-chua-red">${rec.sender.phone}</div>
+                        <div class="text-gray-500 line-clamp-2">${rec.sender.address}</div>
+                        ${rec.sender.note ? `<div class="text-[11px] text-gray-400 italic mt-0.5">Ghi chú: ${rec.sender.note}</div>` : ''}
+                    </td>
+                    <td class="py-3 px-4 text-sm">${deceasedHtml}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button type="button" onclick="window.deleteRecord('${rec.id}', '${rec.firebaseKey || ''}')" class="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition" title="Xóa bản ghi này">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+
+            window.renderPaginationControls(startIndex + 1, endIndex, totalItems, totalPages);
+        };
+
+        window.renderPaginationControls = function(fromItem, toItem, totalItems, totalPages) {
+            const infoEl = document.getElementById('pagination-info');
+            const controlsEl = document.getElementById('pagination-controls');
+
+            if (infoEl) {
+                if (totalItems === 0) {
+                    infoEl.textContent = 'Chưa có bản ghi nào';
+                } else {
+                    infoEl.textContent = `Hiển thị ${fromItem} - ${toItem} trên tổng số ${totalItems} lượt đăng ký`;
+                }
+            }
+
+            if (!controlsEl) return;
+            controlsEl.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Nút "Trước"
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.className = `px-3 py-1.5 rounded-lg text-xs font-semibold transition ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-amber-100 hover:bg-amber-200 text-chua-darkred'}`;
+            prevBtn.innerHTML = `<i class="fa-solid fa-chevron-left mr-1"></i> Trước`;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    window.renderAdminList();
+                }
+            };
+            controlsEl.appendChild(prevBtn);
+
+            // Nút số trang
+            for (let p = 1; p <= totalPages; p++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.type = 'button';
+                const isActive = p === currentPage;
+                pageBtn.className = `px-3 py-1.5 rounded-lg text-xs font-semibold transition ${isActive ? 'bg-chua-amber text-white shadow' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`;
+                pageBtn.textContent = p;
+                pageBtn.onclick = () => {
+                    currentPage = p;
+                    window.renderAdminList();
+                };
+                controlsEl.appendChild(pageBtn);
+            }
+
+            // Nút "Sau"
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.className = `px-3 py-1.5 rounded-lg text-xs font-semibold transition ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-amber-100 hover:bg-amber-200 text-chua-darkred'}`;
+            nextBtn.innerHTML = `Sau <i class="fa-solid fa-chevron-right ml-1"></i>`;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    window.renderAdminList();
+                }
+            };
+            controlsEl.appendChild(nextBtn);
+        };
+
+        window.deleteRecord = function(recordId, firebaseKey) {
+            window.showModal("Xác Nhận Xóa", "Bạn có chắc chắn muốn xóa bản ghi đăng ký này?", async () => {
+                let records = getSavedRecords();
+                const recordToDelete = records.find(r => r.id === recordId);
+                const actualKey = firebaseKey || (recordToDelete ? recordToDelete.firebaseKey : null);
+
+                records = records.filter(r => r.id !== recordId);
+                saveLocalRecords(records);
+                window.renderAdminList();
+
+                if (CLOUD_DB_URL) {
+                    try {
+                        if (actualKey) {
+                            await fetch(`${CLOUD_DB_URL}/${actualKey}.json`, { method: 'DELETE' });
+                        } else {
+                            const res = await fetch(`${CLOUD_DB_URL}.json`);
+                            const data = await res.json();
+                            if (data) {
+                                for (let k in data) {
+                                    if (data[k].id === recordId) {
+                                        await fetch(`${CLOUD_DB_URL}/${k}.json`, { method: 'DELETE' });
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Lỗi xóa trên đám mây:", e);
+                    }
+                }
+
+                window.showToast("Đã xóa bản ghi thành công trên tất cả thiết bị!");
+            });
+        };
+
+        window.exportToExcel = async function() {
+            const records = getSavedRecords();
+
+            if (records.length === 0) {
+                window.showToast("Không có dữ liệu để xuất Excel!", true);
+                return;
+            }
+
+            const data = [
+                ["CHÙA VĨNH HƯNG - DANH SÁCH ĐĂNG KÝ CẦU SIÊU"],
+                ["Địa chỉ: Khu phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai"],
+                [`Thời gian xuất file: ${new Date().toLocaleString('vi-VN')}`],
+                []
+            ];
+
+            const headers = [
+                "STT",
+                "Ngày Đăng Ký",
+                "Họ Tên Phật Tử",
+                "Pháp Danh PT",
+                "Số Điện Thoại",
+                "Địa Chỉ Gia Đình",
+                "Họ Tên Hương Linh",
+                "Pháp Danh HL",
+                "Giới Tính",
+                "Năm Mất / Hưởng Thọ",
+                "Âm / Dương Lịch",
+                "Ghi Chú Gia Đình"
+            ];
+            data.push(headers);
+
+            const merges = [
+                { s: { r: 0, c: 0 }, e: { r: 0, c: 11 } },
+                { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } },
+                { s: { r: 2, c: 0 }, e: { r: 2, c: 11 } }
+            ];
+
+            let currentRow = 5;
+            let sttCounter = 1;
+
+            records.forEach(rec => {
+                const numDeceased = rec.deceased.length;
+                const startRow = currentRow;
+
+                rec.deceased.forEach((d) => {
+                    data.push([
+                        sttCounter,
+                        rec.timestamp,
+                        rec.sender.name,
+                        rec.sender.phapdanh || "",
+                        rec.sender.phone,
+                        rec.sender.address,
+                        d.name,
+                        d.phapdanh || "",
+                        d.gender || "",
+                        d.death || "",
+                        d.calendarType || "Âm lịch",
+                        rec.sender.note || ""
+                    ]);
+                    currentRow++;
+                });
+
+                if (numDeceased > 1) {
+                    const endRow = startRow + numDeceased - 1;
+                    [0, 1, 2, 3, 4, 5, 11].forEach(col => {
+                        merges.push({
+                            s: { r: startRow, c: col },
+                            e: { r: endRow, c: col }
+                        });
+                    });
+                }
+
+                sttCounter++;
+            });
+
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            worksheet['!merges'] = merges;
+
+            worksheet['!cols'] = [
+                { wch: 6 },  { wch: 18 }, { wch: 22 }, { wch: 15 },
+                { wch: 14 }, { wch: 30 }, { wch: 24 }, { wch: 15 },
+                { wch: 10 }, { wch: 20 }, { wch: 16 }, { wch: 25 }
+            ];
+
+            const rowHeights = [
+                { hpt: 32 }, { hpt: 20 }, { hpt: 18 }, { hpt: 12 }, { hpt: 28 }
+            ];
+
+            for (let i = 5; i < data.length; i++) {
+                rowHeights.push({ hpt: 24 });
+            }
+            worksheet['!rows'] = rowHeights;
+
+            const borderThin = {
+                top: { style: "thin", color: { rgb: "D1D5DB" } },
+                bottom: { style: "thin", color: { rgb: "D1D5DB" } },
+                left: { style: "thin", color: { rgb: "D1D5DB" } },
+                right: { style: "thin", color: { rgb: "D1D5DB" } }
+            };
+
+            const headerBorder = {
+                top: { style: "medium", color: { rgb: "7F1D1D" } },
+                bottom: { style: "medium", color: { rgb: "7F1D1D" } },
+                left: { style: "thin", color: { rgb: "FFFFFF" } },
+                right: { style: "thin", color: { rgb: "FFFFFF" } }
+            };
+
+            const range = XLSX.utils.decode_range(worksheet['!ref']);
+
+            for (let R = range.s.r; R <= range.e.r; ++R) {
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                    if (!worksheet[cellRef]) {
+                        worksheet[cellRef] = { t: 's', v: '' };
+                    }
+
+                    if (R === 0) {
+                        worksheet[cellRef].s = {
+                            font: { name: "Times New Roman", sz: 16, bold: true, color: { rgb: "991B1B" } },
+                            alignment: { horizontal: "center", vertical: "center" },
+                            fill: { fgColor: { rgb: "FDFBF7" } }
+                        };
+                    } else if (R === 1) {
+                        worksheet[cellRef].s = {
+                            font: { name: "Times New Roman", sz: 11, italic: true, color: { rgb: "B45309" } },
+                            alignment: { horizontal: "center", vertical: "center" },
+                            fill: { fgColor: { rgb: "FDFBF7" } }
+                        };
+                    } else if (R === 2) {
+                        worksheet[cellRef].s = {
+                            font: { name: "Times New Roman", sz: 10, italic: true, color: { rgb: "666666" } },
+                            alignment: { horizontal: "center", vertical: "center" },
+                            fill: { fgColor: { rgb: "FDFBF7" } }
+                        };
+                    } else if (R === 4) {
+                        worksheet[cellRef].s = {
+                            font: { name: "Times New Roman", sz: 11, bold: true, color: { rgb: "FFFFFF" } },
+                            fill: { fgColor: { rgb: "991B1B" } },
+                            alignment: { horizontal: "center", vertical: "center", wrapText: true },
+                            border: headerBorder
+                        };
+                    } else if (R >= 5) {
+                        let alignHoriz = "left";
+                        if ([0, 1, 3, 4, 7, 8, 9, 10].includes(C)) {
+                            alignHoriz = "center";
+                        }
+
+                        let fontStyle = { name: "Times New Roman", sz: 11, color: { rgb: "1F2937" } };
+
+                        if (C === 2) {
+                            fontStyle.bold = true;
+                        } else if (C === 4) {
+                            fontStyle.bold = true;
+                            fontStyle.color = { rgb: "991B1B" };
+                        } else if (C === 6) {
+                            fontStyle.bold = true;
+                            fontStyle.color = { rgb: "7F1D1D" };
+                        }
+
+                        worksheet[cellRef].s = {
+                            font: fontStyle,
+                            alignment: { horizontal: alignHoriz, vertical: "center", wrapText: true },
+                            border: borderThin,
+                            fill: { fgColor: { rgb: (R % 2 === 0) ? "FFFFFF" : "FFFDF5" } }
+                        };
+                    }
+                }
+            }
+
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Danh Sách Cầu Siêu");
+
+            const today = new Date().toISOString().split('T')[0];
+            const fileName = `Danh_Sach_Cau_Sieu_Chua_Vinh_Hung_${today}.xlsx`;
+
+            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+            if (navigator.canShare) {
+                try {
+                    const file = new File([blob], fileName, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    if (navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'Danh Sách Cầu Siêu',
+                            text: 'Danh sách đăng ký cầu siêu Chùa Vĩnh Hưng'
+                        });
+                        window.showToast("Đã chia sẻ file Excel thành công!");
+                        return;
+                    }
+                } catch (shareErr) {
+                    if (shareErr.name !== 'AbortError') {
+                        console.warn("Lỗi chia sẻ Web Share", shareErr);
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            if (!/iPhone|iPad|iPod|Android|Zalo/i.test(navigator.userAgent)) {
+                XLSX.writeFile(workbook, fileName);
+                window.showToast("Đã tải file Excel thành công!");
+            } else {
+                window.showMobileExportModal(blob, fileName, records);
+            }
+        };
+
+        window.showMobileExportModal = function(blob, fileName, records) {
+            const url = URL.createObjectURL(blob);
+            const directDownloadBtn = document.getElementById('btn-direct-download');
+            directDownloadBtn.href = url;
+            directDownloadBtn.download = fileName;
+
+            document.getElementById('btn-share-excel').onclick = async function() {
+                try {
+                    const file = new File([blob], fileName, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    if (navigator.share) {
+                        await navigator.share({ files: [file], title: fileName });
+                    } else {
+                        window.showToast("Trình duyệt không hỗ trợ chia sẻ trực tiếp", true);
+                    }
+                } catch (e) {
+                    console.warn(e);
+                }
+            };
+
+            document.getElementById('btn-copy-clipboard').onclick = function() {
+                window.copyTableToClipboard(records);
+            };
+
+            document.getElementById('btn-open-printable').onclick = function() {
+                window.openPrintableTable(records);
+            };
+
+            document.getElementById('mobile-export-modal').classList.remove('hidden');
+        };
+
+        window.copyTableToClipboard = function(records) {
+            let tsv = "STT\tNgày Đăng Ký\tHọ Tên Phật Tử\tPháp Danh PT\tSĐT\tĐịa Chỉ\tHọ Tên Hương Linh\tPháp Danh HL\tGiới Tính\tNăm Mất/Hưởng Thọ\tÂm/Dương Lịch\tGhi Chú\n";
+            let stt = 1;
+            records.forEach(rec => {
+                rec.deceased.forEach(d => {
+                    tsv += `${stt}\t${rec.timestamp}\t${rec.sender.name}\t${rec.sender.phapdanh || ''}\t${rec.sender.phone}\t${rec.sender.address}\t${d.name}\t${d.phapdanh || ''}\t${d.gender || ''}\t${d.death || ''}\t${d.calendarType || 'Âm lịch'}\t${rec.sender.note || ''}\n`;
+                });
+                stt++;
+            });
+
+            const textarea = document.createElement('textarea');
+            textarea.value = tsv;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                window.showToast("Đã sao chép bảng dữ liệu! Bạn có thể dán vào Google Sheets hoặc Excel.");
+            } catch (err) {
+                window.showToast("Không thể sao chép tự động", true);
+            }
+            document.body.removeChild(textarea);
+        };
+
+        window.openPrintableTable = function(records) {
+            let html = `
+            <!DOCTYPE html>
+            <html lang="vi">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Danh Sách Cầu Siêu - Chùa Vĩnh Hưng</title>
+                <style>
+                    body { font-family: sans-serif; padding: 12px; background: #fff; color: #111; }
+                    h2 { color: #991b1b; text-align: center; margin: 0; font-size: 18px; }
+                    p { text-align: center; color: #b45309; font-size: 11px; margin: 4px 0 12px 0; }
+                    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+                    th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; }
+                    th { background-color: #991b1b; color: white; text-align: center; font-size: 11px; }
+                    .tc-name { font-weight: bold; color: #991b1b; }
+                    .hl-name { font-weight: bold; color: #7f1d1d; }
+                    tr:nth-child(even) { background-color: #fcfbf7; }
+                    .btn-print { display: block; width: 100%; margin-bottom: 12px; padding: 10px; background: #991b1b; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; }
+                    @media print { .btn-print { display: none; } }
+                </style>
+            </head>
+            <body>
+                <button class="btn-print" onclick="window.print()">🖨️ In Hoặc Lưu File PDF</button>
+                <h2>CHÙA VĨNH HƯNG</h2>
+                <p>DANH SÁCH ĐĂNG KÝ CẦU SIÊU</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Phật tử & Liên Hệ</th>
+                            <th>Danh Sách Hương Linh Cầu Siêu</th>
+                            <th>Ghi Chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            records.forEach((rec, idx) => {
+                const hlList = rec.deceased.map((d, i) => 
+                    `<div style="margin-bottom:4px; padding-bottom:3px; border-bottom:1px dashed #eee;">
+                        <span class="hl-name">${i+1}. ${d.name}</span> ${d.phapdanh ? `(PD: ${d.phapdanh})` : ''} 
+                        <div style="font-size:11px; color:#555;">${d.gender || ''} ${d.death ? '• '+d.death : ''} (${d.calendarType || 'Âm lịch'})</div>
+                    </div>`
+                ).join('');
+
+                html += `
+                    <tr>
+                        <td style="text-align:center; font-weight:bold;">${idx + 1}</td>
+                        <td>
+                            <div class="tc-name">${rec.sender.name}</div>
+                            ${rec.sender.phapdanh ? `<div style="font-size:11px; color:#b45309;">PD: ${rec.sender.phapdanh}</div>` : ''}
+                            <div style="font-size:11px; color:#333; margin-top:2px;">SĐT: ${rec.sender.phone}</div>
+                            <div style="font-size:11px; color:#666;">ĐC: ${rec.sender.address}</div>
+                        </td>
+                        <td>${hlList}</td>
+                        <td style="font-size:11px; color:#555;">${rec.sender.note || ''}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            </body>
+            </html>
+            `;
+
+            const printWin = window.open('', '_blank');
+            if (printWin) {
+                printWin.document.write(html);
+                printWin.document.close();
+            } else {
+                window.showToast("Màn hình bị chặn bật tab mới. Hãy cho phép Pop-up trên trình duyệt.", true);
+            }
+        };
+
+        window.onload = async function() {
+            window.addPersonRow();
+            await fetchRecordsFromCloud();
+        };
+    </script>
+
+</body>
+</html>
